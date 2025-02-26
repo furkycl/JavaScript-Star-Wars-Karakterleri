@@ -151,3 +151,110 @@ function renderCharacters() {
     showcharacters.innerText = "Karakterleri Göster";
   }
 }
+
+/*
+let homeworldsRaw=[];
+var x;
+for(x=0; x < characters.length; x++) {
+  homeworldsRaw.push(characters[x].homeworld ?? "other");
+  console.log(homeworldsRaw);
+}
+*/
+
+/*
+let homeworldsRaw = [];
+for (let obj of characters) {
+  if (!obj.homeworld) {
+    homeworldsRaw.push("other");
+  } else {
+    homeworldsRaw.push(obj.homeworld);
+  }
+}
+console.log(homeworldsRaw);
+*/
+
+let homeworldsRaw = [];
+for (let obj of characters) {
+  homeworldsRaw.push(obj.homeworld ?? "other");
+}
+console.log(homeworldsRaw);
+
+const homeworldsUnique = [];
+for (i = 0; i < homeworldsRaw.length; i++) {
+  if (homeworldsUnique.includes(homeworldsRaw[i]) === false) {
+    homeworldsUnique.push(homeworldsRaw[i]);
+  }
+}
+console.log(homeworldsUnique);
+
+const homeworldsLowercase = [];
+for (j = 0; j < homeworldsUnique.length; j++) {
+  homeworldsLowercase.push(homeworldsUnique[j].toLowerCase());
+}
+console.log(homeworldsLowercase);
+
+const homeworlds = homeworldsLowercase;
+console.log(homeworlds);
+
+const radioinputmaker = `
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+  <label class="form-check-label" for="flexRadioDefault1">
+  Default radio
+  </label>
+</div> `;
+
+
+for (k = 0; k < homeworlds.length; k++) {
+  let newdivforradio = document.createElement("div");
+  newdivforradio.innerHTML = `
+<div class="formcheck">
+  <input class="form-check-input" type="radio" name="homeworld" id="homeworld-${homeworlds[k]}" value="${homeworlds[k]}">
+  <label class="form-check-label" for="homeworld-${homeworlds[k]}">
+  ${homeworlds[k]}
+  </label>
+</div> `;
+  document.getElementById("homeworlds-filter-container").appendChild(newdivforradio);
+}
+
+
+
+
+let filteredHomeworld = document.homeworldsfilterform.homeworldsfiltercontainer.newdivforradio.homeworld;
+console.log(filteredHomeworld);
+let prev;
+for(k=0;k<filteredHomeworld.length;k++){
+  filteredHomeworld[k].addEventListener('change',function() {
+    (prev) = console.log(prev.value); null;
+    if(this !== prev){
+      prev = this;
+    }
+    console.log(this.value)
+    });
+}
+
+/*
+for (k = 0; k < homeworlds.length; k++) {
+  let newdivforradio = document.createElement("div");
+  newdivforradio.innerHTML = `
+<div class="formcheck">
+  <input class="form-check-input" type="radio" name="homeworld" id="homeworld-${homeworlds[k]}" value="${homeworlds[k]}">
+  <label class="form-check-label" for="homeworld-${homeworlds[k]}">
+  ${homeworlds[k]}
+  </label>
+</div> `;
+  document.getElementById("homeworlds-filter-container").appendChild(newdivforradio);
+  let filteredHomeworld = document.homeworldsfilterform.homeworldsfiltercontainer.newdivforradio.homeworld; 
+  let filteredHomeworld = document.getElementById("homeworlds-filter-container").appendChild(newdivforradio);
+  console.log(filteredHomeworld);
+  let prev;
+  for(k=0;k<filteredHomeworld.length;k++){
+    filteredHomeworld[k].addEventListener('change',function() {
+      (prev) = console.log(prev.value); null;
+      if(this !== prev){
+        prev = this;
+      }
+      console.log(this.value)
+      });
+}}
+*/
