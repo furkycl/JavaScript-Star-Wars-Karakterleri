@@ -196,6 +196,128 @@ console.log(homeworldsLowercase);
 const homeworlds = homeworldsLowercase;
 console.log(homeworlds);
 
+/* o yüzden bu çözümü yaptım Part 3 ve 4 buraya gelecek*/
+const filter_group = document.getElementById("homeworlds-filter-container");
+homeworlds.forEach((world, index) => {
+  const div = document.createElement("div");
+
+  const radio = document.createElement("input");
+  const unique_id = "filter-radio-" + index;
+  radio.id = unique_id;
+  radio.type = "radio";
+  radio.value = world;
+  radio.name = "home";
+  radio.classList.value = "me-2";
+
+  const label = document.createElement("label");
+  label.for = unique_id;
+  label.innerText = world;
+
+  div.appendChild(radio);
+  div.appendChild(label);
+  filter_group.appendChild(div);
+});
+
+
+
+const filter_form = document.getElementById("homeworldsfilterform");
+filter_form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let filteredHomeworld = "";
+  const data = new FormData(filter_form);
+  for (const entry of data) {
+    filteredHomeworld = entry[1];
+  }
+  filteredcharacterShow(filteredHomeworld);
+});
+
+
+
+function filteredcharacterShow(filteredHomeworld) {
+  if (charactersrow.innerHTML === "") {
+    showcharacters.classList.remove("btn-success");
+    showcharacters.classList.add("btn-danger");
+    showcharacters.innerText = "Karakterleri Gizle";
+  }
+  charactersrow.innerHTML = "";
+  let i;
+  for (i = 0; i < characters.length; i++) {
+    if (
+      (characters[i].homeworld ?? "other").toLowerCase() === filteredHomeworld ||
+      !filteredHomeworld
+    ) {
+      let newdiv = document.createElement("div");
+      newdiv.classList.add("col-3");
+      newdiv.innerHTML = `
+            <div class="card" style="width: 18rem;">
+              <img src="${characters[i % characters.length].pic}" class="card-img-top" alt="...">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID:${characters[i % characters.length].id}</li>
+                <li class="list-group-item">Name:${characters[i % characters.length].name}</li>
+                <li class="list-group-item">Homeworld:${characters[i % characters.length].homeworld}</li>
+              </ul>
+            </div>`;
+      charactersrow.appendChild(newdiv);
+    }
+  }
+}
+
+/*
+function filteredcharacterShow(filteredHomeworld) {
+  if (charactersrow.innerHTML === "") {
+    showcharacters.classList.remove("btn-success");
+    showcharacters.classList.add("btn-danger");
+    showcharacters.innerText = "Karakterleri Gizle";
+  }
+  charactersrow.innerHTML = "";
+  let i;
+  for (i = 0; i < characters.length; i++) {
+    if (
+      (characters[i].homeworld == "other") === filteredHomeworld ||
+      !filteredHomeworld
+    ) {
+      let newdiv = document.createElement("div");
+      newdiv.classList.add("col-3");
+      newdiv.innerHTML = `
+            <div class="card" style="width: 18rem;">
+              <img src="${characters[i].pic}" class="card-img-top" alt="...">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID:${characters[i].id}</li>
+                <li class="list-group-item">Name:${characters[i].name}</li>
+                <li class="list-group-item">Homeworld:${characters[i].homeworld}</li>
+              </ul>
+            </div>`;
+      charactersrow.appendChild(newdiv);
+    }
+  }
+}
+*/
+/*
+function filteredcharacterShow(filteredHomeworld) {
+  if (charactersrow.innerHTML === "") {
+    showcharacters.classList.remove("btn-success");
+    showcharacters.classList.add("btn-danger");
+    showcharacters.innerText = "Karakterleri Gizle";
+  }
+  charactersrow.innerHTML = "";
+  let z;
+  for (z = 0; z < characters.length; z++) {
+    let newdiv = document.createElement("div");
+    newdiv.classList.add("col-3");
+    newdiv.innerHTML = `
+        <div class="card" style="width: 18rem;">
+          <img src="${characters[z].pic}" class="card-img-top" alt="...">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">ID:${characters[z].id}</li>
+            <li class="list-group-item">Name:${characters[z].name}</li>
+            <li class="list-group-item">Homeworld:${characters[z].homeworld}</li>
+          </ul>
+        </div>`;
+    charactersrow.appendChild(newdiv);
+  }
+}
+*/
+/*
 const radioinputmaker = `
 <div class="form-check">
   <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
@@ -203,12 +325,13 @@ const radioinputmaker = `
   Default radio
   </label>
 </div> `;
-
-
+*/
+/*
+========>  Çalışıyor fakat aşağıda elementleri okurken burdaki literal stringin içindeki nameye ne yaptıysam bir türlü ulaşamadım!  <=========
 for (k = 0; k < homeworlds.length; k++) {
   let newdivforradio = document.createElement("div");
   newdivforradio.innerHTML = `
-<div class="formcheck">
+<div class="form-check" name="formcheck">
   <input class="form-check-input" type="radio" name="homeworld" id="homeworld-${homeworlds[k]}" value="${homeworlds[k]}">
   <label class="form-check-label" for="homeworld-${homeworlds[k]}">
   ${homeworlds[k]}
@@ -216,11 +339,17 @@ for (k = 0; k < homeworlds.length; k++) {
 </div> `;
   document.getElementById("homeworlds-filter-container").appendChild(newdivforradio);
 }
-
-
-
-
-let filteredHomeworld = document.homeworldsfilterform.homeworldsfiltercontainer.newdivforradio.homeworld;
+*/
+/*
+const homeworlds_filterform = document.getElementById("homeworldsfilterform");
+homeworlds_filterform.addEventListener("submit", (event) => {
+  e.preventDefault();
+  const data = new FormData(homeworlds_filterform);
+  console.log(data);
+});
+*/
+/*
+let filteredHomeworld = document.homeworldsfilterform.homeworldsfiltercontainer.formcheck;
 console.log(filteredHomeworld);
 let prev;
 for(k=0;k<filteredHomeworld.length;k++){
@@ -232,7 +361,7 @@ for(k=0;k<filteredHomeworld.length;k++){
     console.log(this.value)
     });
 }
-
+*/
 /*
 for (k = 0; k < homeworlds.length; k++) {
   let newdivforradio = document.createElement("div");
